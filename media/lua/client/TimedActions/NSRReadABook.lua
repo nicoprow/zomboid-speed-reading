@@ -66,7 +66,7 @@ function ISReadABook:new(player, item, time)
 	if(o.character:HasTrait("LowThirst")) then
 		thirstMultiplier = thirstMultiplier * 0.5
 	end
-	if(o.character:HasTrait("High Thirst")) then
+	if(o.character:HasTrait("HighThirst")) then
 		thirstMultiplier = thirstMultiplier * 2
 	end
 	
