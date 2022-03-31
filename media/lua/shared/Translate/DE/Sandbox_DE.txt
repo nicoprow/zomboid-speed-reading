@@ -1,0 +1,13 @@
+Sandbox_DE = {
+	Sandbox_NicocokoSpeedReading = "Speed Reading",
+	Sandbox_NicocokoSpeedReadingReadSpeedMultiplier = "Multiplikator der Lesegeschwindigkeit",
+	Sandbox_NicocokoSpeedReadingReadSpeedMultiplier_tooltip = "Um welchen Faktor die Lesegeschwindigkeit steigt (bei x20 benötigen 220 Seiten ungefähr 1 Minute)",
+	Sandbox_NicocokoSpeedReadingIncreaseCalorieConsumption = "Mehr Kalorienverbrauch",
+	Sandbox_NicocokoSpeedReadingIncreaseCalorieConsumption_tooltip = "Falls aktiviert, erhöht auch den Kalorienverbrauch um den Faktor der Lesegeschwindigkeit",
+	Sandbox_NicocokoSpeedReadingIncreaseHunger = "Mehr Hunger",
+	Sandbox_NicocokoSpeedReadingIncreaseHunger_tooltip = "Falls aktiviert, erhöht auch die Hungerrate um den Faktor der Lesegeschwindigkeit",
+	Sandbox_NicocokoSpeedReadingIncreaseThirst = "Mehr Durst",
+	Sandbox_NicocokoSpeedReadingIncreaseThirst_tooltip = "Falls aktiviert, erhöht auch die Durstrate um den Faktor der Lesegeschwindigkeit",
+	Sandbox_NicocokoSpeedReadingIncreaseBoredom = "Mehr Langeweile",
+	Sandbox_NicocokoSpeedReadingIncreaseBoredom_tooltip = "Falls aktiviert, erhöht auch die Langeweile-Rate um den Faktor der Lesegeschwindigkeit",
+	}
