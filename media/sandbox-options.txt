@@ -10,34 +10,42 @@ option NicocokoSpeedReading.ReadSpeedMultiplier
 	translation = NicocokoSpeedReadingReadSpeedMultiplier,
 }
 
-option NicocokoSpeedReading.IncreaseCalorieConsumption
+option NicocokoSpeedReading.CalorieConsumptionMultiplier
 {
-	type = boolean,
-	default = true,
+	type = double,
+	min = 1,
+	max = 100,
+	default = 20,
 	page = NicocokoSpeedReading,
-	translation = NicocokoSpeedReadingIncreaseCalorieConsumption,
+	translation = NicocokoSpeedReadingCalorieConsumptionMultiplier,
 }
 
-option NicocokoSpeedReading.IncreaseHunger
+option NicocokoSpeedReading.HungerMultiplier
 {
-	type = boolean,
-	default = true,
+	type = double,
+	min = 1,
+	max = 100,
+	default = 20,
 	page = NicocokoSpeedReading,
-	translation = NicocokoSpeedReadingIncreaseHunger,
+	translation = NicocokoSpeedReadingHungerMultiplier,
 }
 
-option NicocokoSpeedReading.IncreaseThirst
+option NicocokoSpeedReading.ThirstMultiplier
 {
-	type = boolean,
-	default = true,
+	type = double,
+	min = 1,
+	max = 100,
+	default = 20,
 	page = NicocokoSpeedReading,
-	translation = NicocokoSpeedReadingIncreaseThirst,
+	translation = NicocokoSpeedReadingThirstMultiplier,
 }
 
-option NicocokoSpeedReading.IncreaseBoredom
+option NicocokoSpeedReading.BoredomMultiplier
 {
-	type = boolean,
-	default = true,
+	type = double,
+	min = 1,
+	max = 100,
+	default = 20,
 	page = NicocokoSpeedReading,
-	translation = NicocokoSpeedReadingIncreaseBoredom,
+	translation = NicocokoSpeedReadingBoredomMultiplier,
 }

@@ -1,7 +1,10 @@
 require "TimedActions/ISReadABook"
 
-growthPerTime = 6.1553e-6
-boredomGrowthPerTime = 2.0833e-4
+defaultMultiplier = 20.0
+hungerIncrease = 4.2424e-6
+thirstIncrease = 3.9962e-6
+boredomIncrease = 2.0833e-4
+wellFedDurationLevel = 1440
 
 NSROVERWRITE_ISReadABook_update = ISReadABook.update
 function ISReadABook:update()
@@ -38,49 +41,46 @@ function ISReadABook:new(player, item, time)
 	
 	local o = NSROVERWRITE_ISReadABook_new(self, player, item, time)
 	
-	o.readSpeedModifier =  SandboxVars.NicocokoSpeedReading.ReadSpeedMultiplier
+	local readSpeedMultiplier =  SandboxVars.NicocokoSpeedReading.ReadSpeedMultiplier or defaultMultiplier
+	local caloriesMultiplier = SandboxVars.NicocokoSpeedReading.CalorieConsumptionMultiplier or defaultMultiplier
+	local hungerMultiplier= SandboxVars.NicocokoSpeedReading.HungerMultiplier or defaultMultiplier
+	local thirstMultiplier = SandboxVars.NicocokoSpeedReading.ThirstMultiplier or defaultMultiplier
+	local boredomMultiplier = SandboxVars.NicocokoSpeedReading.BoredomMultiplier or defaultMultiplier
+	
 
-	local speedUpMaxTime =  math.ceil(o.maxTime / o.readSpeedModifier)
+	local speedUpMaxTime =  math.ceil(o.maxTime / readSpeedMultiplier)
 	local timeDifference = o.maxTime - speedUpMaxTime
 	
-	local caloriesModifier = 1.0
-	if(SandboxVars.NicocokoSpeedReading.IncreaseCalorieConsumption) then
-		caloriesModifier = o.readSpeedModifier
+	local wellFedDuration = o.character:getMoodles():getMoodleLevel(MoodleType.FoodEaten) * wellFedDurationLevel
+	local differenceHunger = o.maxTime - math.ceil(o.maxTime / hungerMultiplier) - wellFedDuration
+	if(differenceHunger < 0) then
+		differenceHunger = 0
 	end
-
-	local hungerMultiplier = 0.0
-	if(SandboxVars.NicocokoSpeedReading.IncreaseHunger) then
-		hungerMultiplier = 1.0
-	end
+	
+	local differenceThirst = o.maxTime - math.ceil(o.maxTime / thirstMultiplier)
+	local differenceBoredom = o.maxTime - math.ceil(o.maxTime / boredomMultiplier)
+	
+	local hungerModifier = 1.0
 	if(o.character:HasTrait("LightEater")) then
-		hungerMultiplier = hungerMultiplier * 0.75
+		hungerModifier = hungerModifier * 0.75
 	end
 	if(o.character:HasTrait("HeartyAppitite")) then
-		hungerMultiplier = hungerMultiplier * 1.5
+		hungerModifier = hungerModifier * 1.5
 	end
 
-	local thirstMultiplier = 0.0
-	if(SandboxVars.NicocokoSpeedReading.IncreaseThirst) then
-		thirstMultiplier = 1.0
-	end
+	local thirstModifier = 1.0
 	if(o.character:HasTrait("LowThirst")) then
-		thirstMultiplier = thirstMultiplier * 0.5
+		thirstModifier = thirstModifier * 0.5
 	end
 	if(o.character:HasTrait("HighThirst")) then
-		thirstMultiplier = thirstMultiplier * 2
+		thirstModifier = thirstModifier * 2
 	end
 	
-	local boredomMultiplier = 0.0
-	if(SandboxVars.NicocokoSpeedReading.IncreaseBoredom) then
-		boredomMultiplier = 1.0
-	end
 	
-	o.caloriesModifier = o.caloriesModifier * caloriesModifier
-	
-	o.additionalHunger = timeDifference * growthPerTime * hungerMultiplier
-	o.additionalThirst = timeDifference * growthPerTime * thirstMultiplier
-	
-	o.additionalBoredom = timeDifference * boredomGrowthPerTime * boredomMultiplier
+	o.caloriesModifier = o.caloriesModifier * caloriesMultiplier
+	o.additionalHunger = differenceHunger * hungerIncrease * hungerModifier
+	o.additionalThirst = differenceThirst * thirstIncrease * thirstModifier
+	o.additionalBoredom = differenceBoredom * boredomIncrease
 	
 	o.maxTime = speedUpMaxTime
 	o.lastDelta = 0.0
